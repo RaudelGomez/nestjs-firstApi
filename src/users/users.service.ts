@@ -10,11 +10,11 @@ export class UsersService {
 
   users = [];
 
-  findAll(): Promise<CreateUserDto[]> {
-    return this.prisma.user.findMany();
+  async findAll(): Promise<CreateUserDto[]> {
+    return await this.prisma.user.findMany();
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<CreateUserDto> {
     const user = await this.prisma.user.findUnique({
       where: {id: id}
     })
@@ -28,7 +28,7 @@ export class UsersService {
     return this.prisma.user.create({data:createUserDto});
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<CreateUserDto> {
     const user = await this.prisma.user.findUnique({
       where: {id: id}
     });
@@ -41,7 +41,7 @@ export class UsersService {
     });
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<CreateUserDto> {
     const user = await this.prisma.user.findUnique({
       where: {id: id}
     })
