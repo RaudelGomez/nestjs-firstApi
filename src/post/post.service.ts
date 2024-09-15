@@ -37,13 +37,13 @@ export class PostService {
     });
   }
 
-  remove(id: number) {
-    const post = this.prisma.post.findUnique({where: {id}});
+  async remove(id: number) {
+    const post = await this.prisma.post.findUnique({where: {id}});
 
     if(!post){
       throw new NotImplementedException(`Post with id ${id} not found`)
     }
 
-    return this.prisma.post.delete({where: {id}});
+    return await this.prisma.post.delete({where: {id}});
   }
 }

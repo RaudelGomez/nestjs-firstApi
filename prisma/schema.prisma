@@ -19,6 +19,7 @@ model User {
   name      String?  // Nombre del usuario, puede ser nulo
   password  String  
   posts     Post[]
+  houses    UsersHouses[]
      
   createdAt DateTime @default(now()) // Fecha de creación con valor por defecto
   updatedAt DateTime @updatedAt // Fecha de actualización automática
@@ -33,4 +34,21 @@ model Post {
     
   createdAt DateTime @default(now()) // Fecha de creación con valor por defecto
   updatedAt DateTime @updatedAt // Fecha de actualización automática
+}
+
+model House {
+  id        String   @id @default(cuid()) 
+  owners    UsersHouses[]
+}
+
+model UsersHouses {
+  owner User @relation(fields: [ownerId], references: [id])
+  ownerId String
+  house House @relation(fields: [houseId], references: [id]) 
+  houseId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+
+  @@id([ownerId, houseId])
 }
