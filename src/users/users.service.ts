@@ -8,8 +8,6 @@ export class UsersService {
 
   constructor(private prisma: PrismaService) {}
 
-  users = [];
-
   async findAll(): Promise<CreateUserDto[]> {
     return await this.prisma.user.findMany();
   }
@@ -24,8 +22,8 @@ export class UsersService {
     return user;
   }
 
-  create(createUserDto: CreateUserDto): Promise<CreateUserDto> {
-    return this.prisma.user.create({data:createUserDto});
+  async create(createUserDto: CreateUserDto): Promise<CreateUserDto> {
+    return await this.prisma.user.create({data:createUserDto});
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<CreateUserDto> {

@@ -7,7 +7,18 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
   }))
+
+  app.enableCors(
+    // {
+    // origin: 'https://raudel-gomez-smith.de',
+    // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    // credentials: true,  // Si estás usando cookies de sesión
+    // }
+  );
+  
   await app.listen(3000);
 }
 bootstrap();
